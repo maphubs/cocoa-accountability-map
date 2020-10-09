@@ -20,18 +20,27 @@ class MapHubsMap extends React.Component<Props, void> {
   constructor (props: Props) {
     super(props)
     if (typeof window !== 'undefined') {
-      this.MapState = new MapContainer()
+      const mapState = new MapContainer()
+      this.MapState = mapState
       this.BaseMap = new BaseMapContainer({
         baseMap: props.baseMap || 'streets',
         bingKey: process.env.NEXT_PUBLIC_BING_KEY,
         mapboxAccessToken: process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
       })
+
+      this.handleResize = () => {
+        console.log('map resize')
+        setTimeout(() => {
+          mapState.state.map.map.resize()
+        }, 200)
+      }
     }
   }
 
   MapState: any
   mapComponent: any
   BaseMap: any
+  handleResize: any
 
   componentDidMount () {
     const {id, registerType, dispatch} = this.props
@@ -41,6 +50,12 @@ class MapHubsMap extends React.Component<Props, void> {
       mapComponent: this.mapComponent,
       mapState: this.MapState
     })
+
+    window.addEventListener('resize', this.handleResize)
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('resize', this.handleResize)
   }
 
   render () {
@@ -78,14 +93,16 @@ class MapHubsMap extends React.Component<Props, void> {
               background-color: #42B532 !important;
             }
 
-            .mapboxgl-canvas{left:0 !important;}
+            .mapboxgl-canvas{
+              left:0 !important;
+            }
             
             .mapboxgl-popup{z-index:200 !important;height:200px;width:150px;}
             .mapboxgl-popup-content{padding:0 !important;}
             .mapboxgl-popup-close-button{top:-7px !important;right:-7px !important;z-index:201 !important;background-color:rgba(255,255,255,0.75) !important;color:black !important;border-radius:25px !important;border:1px solid black !important;width:14px !important;height:14px !important;line-height:5px !important;padding-bottom:1px !important;padding-top:0px !important;padding-left:0.5px !important;padding-right:0px !important;}
             .maphubs-feature-popup{padding:0;}
             .mapbox-gl-draw_point,.mapbox-gl-draw_line,.mapbox-gl-draw_polygon{border-bottom:none !important;border-right:1px #ddd solid !important;}
-            .mapboxgl-ctrl-top-right{top:40px !important;}
+            .mapboxgl-ctrl-top-right{top:5px !important;}
             .maphubs-ctrl-scale{border:none !important;padding:0 !important;background-color:inherit !important;position:relative;height:22px;position:absolute;bottom:5px;right:5px;height:34px;margin:0px !important;}
             .map-position{height:12px;position:absolute;top:0;right:0;background-color:rgba(255,255,255,0.55);font-size:10px;line-height:10px;text-align:center;box-shadow:none !important;color:#333;}
             .metric-scale{height:12px;font-size:10px;line-height:10px;text-align:center;box-shadow:none !important;background-color:rgba(255,255,255,0.55);border-width:medium 2px 2px;border-style:none solid solid;border-color:#333;padding:0 5px;color:#333;position:absolute;top:12px;right:0;}
@@ -112,6 +129,10 @@ class MapHubsMap extends React.Component<Props, void> {
               showLayerVisibility={false}
               showLayerInfo={false}
               showShareButtons={false}
+              showFeatureInfoEditButtons={false}
+              showSearch={false}
+              showMapTools={false}
+              disableScrollZoom={false}
               t={t}
               hideInactive
               insetMap={false}

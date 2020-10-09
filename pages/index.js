@@ -1,5 +1,5 @@
 // @flow
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {
   Layout,
   Row,
@@ -29,6 +29,20 @@ export default function Home () {
     data: coopsData
   })
   const [layers, setLayers] = useState([coops.layer, ...primaryLayers])
+
+  useEffect(() => {
+    // fire a resize event to ensure MapboxGL map resizes properly
+    if (Event.prototype.initEvent) {
+      console.log('firing resize')
+      /* deprecated method */
+      const evt: any = document.createEvent('UIEvents')
+      evt.initUIEvent('resize', true, false, window, 0)
+      window.dispatchEvent(evt)
+    } else {
+      /* current method */
+      window.dispatchEvent(new Event('resize'))
+    }
+  }, [collapsed])
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
