@@ -5,7 +5,8 @@ import {
   Row,
   Col
 } from 'antd'
-
+import { useSelector } from 'react-redux'
+import syncMaps from 'mapbox-gl-sync-move'
 import COOPSearch from '../components/COOPs'
 import Layers from '../components/Layers'
 import PrimaryMap from '../components/PrimaryMap'
@@ -29,11 +30,20 @@ export default function Home () {
     data: coopsData
   })
   const [layers, setLayers] = useState([coops.layer, ...primaryLayers])
+  /*
+  const primaryMapState = useSelector(state => state.cam.primaryMapState)
+  const alertMapState = useSelector(state => state.cam.alertMapState)
+
+  if (primaryMapState?.state?.map?.map && alertMapState?.state?.map?.map) {
+    console.log('syncing maps')
+    syncMaps(primaryMapState.state.map.map, alertMapState.state.map.map)
+  }
+  */
 
   useEffect(() => {
     // fire a resize event to ensure MapboxGL map resizes properly
     if (Event.prototype.initEvent) {
-      console.log('firing resize')
+      // console.log('firing resize')
       /* deprecated method */
       const evt: any = document.createEvent('UIEvents')
       evt.initUIEvent('resize', true, false, window, 0)

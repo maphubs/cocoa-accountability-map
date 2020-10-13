@@ -2,6 +2,7 @@
 import React from 'react'
 import { Provider } from 'unstated'
 import { connect } from 'react-redux'
+import syncMaps from 'mapbox-gl-sync-move'
 
 import {InteractiveMap, MapContainer, BaseMapContainer} from '@bit/kriscarle.maphubs-components.components.map'
 
@@ -13,7 +14,10 @@ type Props = {
   baseMap?: string,
   title?: Object,
   registerType: string,
-  dispatch: Function
+  dispatch: Function,
+  children: any,
+  primaryMapState: any,
+  alertMapState: any
 }
 
 class MapHubsMap extends React.Component<Props, void> {
@@ -59,7 +63,7 @@ class MapHubsMap extends React.Component<Props, void> {
   }
 
   render () {
-    const { id, t, glStyle, mapLayers, title } = this.props
+    const { id, t, glStyle, mapLayers, title, children, primaryMapState, alertMapState } = this.props
 
     return (
       <div style={{ height: '100%' }}>
@@ -95,6 +99,10 @@ class MapHubsMap extends React.Component<Props, void> {
 
             .mapboxgl-canvas{
               left:0 !important;
+            }
+
+            .attribute-collection-item p {
+              margin: 0;
             }
             
             .mapboxgl-popup{z-index:200 !important;height:200px;width:150px;}
@@ -137,14 +145,25 @@ class MapHubsMap extends React.Component<Props, void> {
               hideInactive
               insetMap={false}
               showLogo
-              hash={false}
+              hash
               primaryColor='#4EA775'
               logoSmall='https://hpvhe47439ygwrt.belugacdn.link/maphubs/assets/maphubs-logo-small.png'
               logoSmallHeight={19}
               logoSmallWidth={70}
               mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
               locale='en'
-            />
+              onLoad={() => {
+                console.log(`MAP ON LOAD: ${id}`)
+                console.log(primaryMapState)
+                console.log(alertMapState)
+                if (id === 'cam-primary-map') {
+                  console.log('syncing maps')
+                  syncMaps(primaryMapState.state.map.map, alertMapState.state.map.map)
+                }
+              }}
+            >
+              {children}
+            </InteractiveMap>
           </div>
         </Provider>
       </div>
@@ -152,5 +171,8 @@ class MapHubsMap extends React.Component<Props, void> {
   }
 }
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  primaryMapState: state.cam.primaryMapState,
+  alertMapState: state.cam.alertMapState
+})
 export default connect(mapStateToProps)(MapHubsMap)
