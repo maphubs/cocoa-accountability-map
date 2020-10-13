@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "modclean": "modclean -n default:safe -r --ignore=\"@bit/kriscarle.maphubs-utils.maphubs-utils.log\""
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
