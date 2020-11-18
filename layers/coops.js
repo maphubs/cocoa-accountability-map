@@ -176,6 +176,7 @@ export default {
         metadata: {
           'maphubs:interactive': true
         },
+        maxzoom: 8,
         source: 'coops',
         filter: [
           'in',
@@ -194,8 +195,33 @@ export default {
         }
       },
       {
+        id: 'omh-markers-JmTgPfvLk-2',
+        type: 'symbol',
+        minzoom: 8,
+        metadata: {
+          'maphubs:interactive': true
+        },
+        source: 'coops',
+        filter: [
+          'in',
+          '$type',
+          'Point'
+        ],
+        layout: {
+          'icon-image': 'marker-icon-MlQjegnHjy-2',
+          'icon-size': 0.45,
+          'icon-allow-overlap': true,
+          'icon-offset': [
+            0,
+            -16
+          ],
+          visibility: 'visible'
+        }
+      },
+      {
         id: 'omh-data-point-5505-JmTgPfvLk',
         type: 'circle',
+        maxzoom: 8,
         metadata: {
           'maphubs:layer_id': 5505,
           'maphubs:globalid': 'JmTgPfvLk',
@@ -219,6 +245,49 @@ export default {
             enabled: true,
             version: 2,
             imageName: 'marker-icon-MlQjegnHjy'
+          }
+        },
+        source: 'coops',
+        filter: [
+          'in',
+          '$type',
+          'Point'
+        ],
+        paint: {
+          'circle-color': 'rgba(93,64,55,0.92)',
+          'circle-opacity': 1
+        },
+        layout: {
+          visibility: 'none'
+        }
+      },
+      {
+        id: 'omh-data-point-5505-JmTgPfvLk-2',
+        type: 'circle',
+        minzoom: 8,
+        metadata: {
+          'maphubs:layer_id': 5505,
+          'maphubs:globalid': 'JmTgPfvLk',
+          'maphubs:interactive': false,
+          'maphubs:showBehindBaseMapLabels': false,
+          'maphubs:markers': {
+            shape: 'SQUARE_PIN',
+            size: '24',
+            width: 24,
+            height: 24,
+            shapeFill: 'white',
+            shapeFillOpacity: 0.75,
+            shapeStroke: 'rgba(93,64,55,0.92)',
+            shapeStrokeWidth: 2,
+            icon: 'maphubs-icon-farmer',
+            iconFill: 'rgba(93,64,55,0.92)',
+            iconFillOpacity: 1,
+            iconStroke: '#323333',
+            iconStrokeWidth: 0,
+            inverted: true,
+            enabled: true,
+            version: 2,
+            imageName: 'marker-icon-MlQjegnHjy-2'
           }
         },
         source: 'coops',
