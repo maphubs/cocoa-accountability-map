@@ -18,11 +18,11 @@ const maxMonth = 9
 
 export default function AlertMap ({t, mapLayers}: {t: Function, mapLayers: Array<Object>}) {
   const [glStyle, setGlStyle] = useState()
-  const [alertGridLayer, setAlertGridLayer] = useState(AlertGrid(20, 7))
+  const [alertGridLayer, setAlertGridLayer] = useState(AlertGrid(20, maxMonth, maxMonth))
   const [year, setYear] = useState(20)
-  const [month, setMonth] = useState(7)
+  const [month, setMonth] = useState(maxMonth)
   useEffect(() => {
-    const alertGridUpdated = AlertGrid(year, month)
+    const alertGridUpdated = AlertGrid(year, month, maxMonth)
     setAlertGridLayer(alertGridUpdated)
     setGlStyle(buildMapStyle([alertGridUpdated]))
   }, [month, year])
@@ -38,8 +38,8 @@ export default function AlertMap ({t, mapLayers}: {t: Function, mapLayers: Array
       glStyle={glStyle}
     >
       <div style={{position: 'absolute', top: '5px', left: '50%'}}>
-        <Row justify='center' align='middle' style={{width: '200px', padding: '5px', backgroundColor: 'rgba(255,255,255,0.5)'}}>
-          <Col span={4}>
+        <Row justify='center' align='middle' style={{width: '220px', padding: '5px', backgroundColor: 'rgba(255,255,255,0.5)'}}>
+          <Col span={4} style={{textAlign: 'center'}}>
             <Button
               disabled={month <= minMonth}
               icon={<LeftOutlined />} onClick={() => {
@@ -52,7 +52,7 @@ export default function AlertMap ({t, mapLayers}: {t: Function, mapLayers: Array
               {monthNamesEn[month - 1]}, 20{year}
             </span>
           </Col>
-          <Col span={4}>
+          <Col span={4} style={{textAlign: 'center'}}>
             <Button
               disabled={month >= maxMonth}
               icon={<RightOutlined />} onClick={() => {

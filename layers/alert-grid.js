@@ -1,4 +1,4 @@
-const getLayer = (year, month) => {
+const getLayer = (year, month, maxMonth) => {
   const API_URL = process.env.NEXT_PUBLIC_CAM_API_URL
   return {
     layer_id: 2,
@@ -20,7 +20,7 @@ const getLayer = (year, month) => {
       sources: {
         'alert-grid-l4': {
           type: 'vector',
-          tiles: [`${API_URL}/api/mvt/L4/{z}/{x}/{y}.pbf`],
+          tiles: [`${API_URL}/api/mvt/L4/${maxMonth}/{z}/{x}/{y}.pbf`],
           metadata: {
             'maphubs:presets': [
               {
@@ -37,7 +37,7 @@ const getLayer = (year, month) => {
         },
         'alert-grid-l5': {
           type: 'vector',
-          tiles: [`${API_URL}/api/mvt/L5/{z}/{x}/{y}.pbf`],
+          tiles: [`${API_URL}/api/mvt/L5/${maxMonth}/{z}/{x}/{y}.pbf`],
           metadata: {
             'maphubs:presets': [
               {
