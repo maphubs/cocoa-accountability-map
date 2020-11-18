@@ -5,7 +5,7 @@ import ProtecteAreas from './protected-areas'
 import CoopsLayer from './coops'
 import AlertGrid from './alert-grid'
 
-const coopsData = require('../data/coops.json')
+const coopsData = require('../data/coops-20201118.json')
 
 CoopsLayer.style.sources.coops.data = coopsData
 
