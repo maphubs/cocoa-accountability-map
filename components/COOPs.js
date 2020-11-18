@@ -31,16 +31,17 @@ export default function COOPs ({t, coops}: Props) {
       this.field('vicinity')
       this.field('nearestpa')
 
-      coops.forEach(coop => {
-        coopMap[coop.properties.mhid] = coop
-        this.add({
+      coops.forEach((coop, i) => {
+        coopMap[i] = coop
+        const dataToIndex = {
           name: coop.properties['Name of Cooperative'],
           acronym: coop.properties['Coop Acronym'],
           source: coop.properties.Source,
           vicinity: coop.properties.Vicinity,
           nearestpa: coop.properties['Nearest PA'],
-          id: coop.properties.mhid
-        })
+          id: i
+        }
+        this.add(dataToIndex)
       })
       coopBBox = turfbbox({
         type: 'FeatureCollection',
