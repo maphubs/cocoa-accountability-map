@@ -147,7 +147,7 @@ class MapHubsMap extends React.Component<Props, void> {
               showLogo
               hash
               primaryColor='#4EA775'
-              logoSmall='https://hpvhe47439ygwrt.belugacdn.link/maphubs/assets/maphubs-logo-small.png'
+              logoSmall='https://cdn-maphubs.b-cdn.net/maphubs/assets/maphubs-logo-small.png'
               logoSmallHeight={19}
               logoSmallWidth={70}
               mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
