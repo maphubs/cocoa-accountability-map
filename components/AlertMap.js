@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import buildMapStyle from '../utils/build-map-style'
 import { AlertGrid } from '../layers'
-// import l4gridData from '../data/l4grid.json'
-// import l5gridData from '../data/l5grid.json'
 import { Button, Row, Col } from 'antd'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import dynamic from 'next/dynamic'
@@ -17,9 +15,6 @@ const monthNamesEn = ['January', 'February', 'March', 'April', 'May', 'June',
 
 const minMonth = 1
 const maxMonth = 7
-
-// AlertGrid.style.sources['alert-grid-l4'].data = l4gridData
-// AlertGrid.style.sources['alert-grid-l5'].data = l5gridData
 
 export default function AlertMap ({t, mapLayers}: {t: Function, mapLayers: Array<Object>}) {
   const [glStyle, setGlStyle] = useState()
