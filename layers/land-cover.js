@@ -46,7 +46,8 @@ export default {
         minzoom: 0,
         maxzoom: 18,
         paint: {
-          'raster-opacity': 1
+          'raster-opacity': 1,
+          'raster-resampling': 'nearest'
         }
       }
     ],
