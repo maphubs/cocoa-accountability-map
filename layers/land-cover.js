@@ -20,7 +20,7 @@ export default {
         minzoom: 1,
         maxzoom: 14,
         tiles: [
-          'https://hpvhe47439ygwrt.belugacdn.link/tiles/c/mighty/cdi-lc-v3-2/{z}/{x}/{y}.png'
+          'https://tiles-maphubs.b-cdn.net/tiles/gtu/dbf5373a-dd4b-447a-890b-ce9757c003d6/{z}/{x}/{y}.png'
         ],
         tileSize: 256,
         metadata: {
@@ -28,7 +28,7 @@ export default {
           'maphubs:minzoom': 1,
           'maphubs:maxzoom': 14,
           'maphubs:tiles': [
-            'https://hpvhe47439ygwrt.belugacdn.link/tiles/c/mighty/cdi-lc-v3-2/{z}/{x}/{y}.png'
+            'https://tiles-maphubs.b-cdn.net/tiles/gtu/dbf5373a-dd4b-447a-890b-ce9757c003d6/{z}/{x}/{y}.png'
           ],
           'maphubs:presets': null
         }
@@ -75,7 +75,6 @@ export default {
 </style>
 <div class="legend-scale clearfix">
     <ul class="legend-labels" style="font-size: 8px;">
-        <li class="clearfix"><span class="block block-cdi-landcover" style="background-color: rgb(126, 77, 53);"></span><p data-l10n-id="cocoa">Cocoa</p></li>
         <li class="clearfix"><span class="block block-cdi-landcover" style="background-color: rgb(242, 243, 159);"></span><p data-l10n-id="rubber">Rubber</p></li>
         <li class="clearfix"><span class="block block-cdi-landcover" style="background-color: rgb(20, 111, 17);"></span><p data-l10n-id="closed-forest">Protected Forest</p></li>
         <li class="clearfix"><span class="block block-cdi-landcover" style="background-color: rgb(251, 154, 119);"></span><p data-l10n-id="palm-oil">Palm oil</p></li>  
