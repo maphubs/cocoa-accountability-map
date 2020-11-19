@@ -9,6 +9,9 @@ export default function App ({ Component, pageProps }: {Component: any, pageProp
 
   return (
     <Provider store={store}>
+      <style jsx global>{`
+      body { overflow: hidden;}
+      `}</style>
       <Component {...pageProps} />
     </Provider>
   )
