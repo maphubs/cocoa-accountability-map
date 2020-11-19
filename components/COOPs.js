@@ -102,7 +102,7 @@ export default function COOPs ({t, coops}: Props): Node {
                 />
               </div>
             </>}
-          {!searchResults &&
+          {(searchResults.length === 0)  &&
             <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={t('Search Cooperatives')} />}
         </div>
       </Row>
