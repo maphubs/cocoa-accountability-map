@@ -18,7 +18,7 @@ export default {
     sources: {
       'omh-bsKjfZCcR': {
         type: 'vector',
-        url: 'https://mighty.maphubs.com/api/lyr/bsKjfZCcR/tile.json',
+        tiles: ['https://cdn-maphubs.b-cdn.net/tiles/c/mighty/cdi-pa-cf/{z}/{x}/{y}.pbf'],
         metadata: {
           'maphubs:presets': [
             {
@@ -40,12 +40,12 @@ export default {
               id: 2
             },
             {
-              tag: 'aoi_id',
-              label: 'aoi_id',
+              tag: 'Type',
+              label: 'Type',
               type: 'text',
               isRequired: false,
               showOnMap: true,
-              mapTo: 'aoi_id',
+              mapTo: 'Type',
               id: 3
             },
             {
