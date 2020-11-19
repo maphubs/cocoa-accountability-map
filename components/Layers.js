@@ -2,6 +2,7 @@
 import React from 'react'
 import { Typography, Switch, List } from 'antd'
 import { useSelector } from 'react-redux'
+import type {Node} from 'React'
 
 const { Title } = Typography
 
@@ -11,7 +12,7 @@ type Props = {
   t: Function,
 }
 
-export default function Layers ({t, layers, onToggle}: Props) {
+export default function Layers ({t, layers, onToggle}: Props): Node {
   const mapComponent = useSelector(state => state.cam.primaryMapComponent)
   const filteredLayers = layers.filter(layer => layer.style.metadata['maphubs:active'])
   return (

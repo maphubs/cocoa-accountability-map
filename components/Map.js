@@ -3,6 +3,7 @@ import React from 'react'
 import { Provider } from 'unstated'
 import { connect } from 'react-redux'
 import syncMaps from 'mapbox-gl-sync-move'
+import type {Node} from 'React'
 
 import {InteractiveMap, MapContainer, BaseMapContainer} from '@bit/kriscarle.maphubs-components.components.map'
 
@@ -62,7 +63,7 @@ class MapHubsMap extends React.Component<Props, void> {
     window.removeEventListener('resize', this.handleResize)
   }
 
-  render () {
+  render (): Node {
     const { id, t, glStyle, mapLayers, title, children, primaryMapState, alertMapState } = this.props
 
     return (

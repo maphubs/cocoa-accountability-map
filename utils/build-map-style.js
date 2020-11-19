@@ -1,7 +1,7 @@
 // @flow
 import _forEachRight from 'lodash.foreachright'
 
-const BuildMapStyle = (layers: Array<Object>) => {
+const BuildMapStyle = (layers: Array<Object>): Object => {
   const mapStyle = {
     version: 8,
     sources: {},

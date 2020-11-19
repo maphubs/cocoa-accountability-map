@@ -4,7 +4,9 @@ import { Row, Input, List, Empty } from 'antd'
 import lunr from 'lunr'
 import turfBuffer from '@turf/buffer'
 import turfbbox from '@turf/bbox'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+
+import type {Node} from 'React'
 
 const { Search } = Input
 
@@ -17,11 +19,12 @@ let idx
 const coopMap = {}
 let coopBBox
 
-export default function COOPs ({t, coops}: Props) {
+export default function COOPs ({t, coops}: Props): Node {
   const [searchQuery, setSearchQuery] = useState()
-  const [searchResults, setSearchResults] = useState()
 
   const primaryMapState = useSelector(state => state.cam.primaryMapState)
+  const searchResults = useSelector(state => state.cam.searchResults)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     idx = lunr(function () {
@@ -31,16 +34,17 @@ export default function COOPs ({t, coops}: Props) {
       this.field('vicinity')
       this.field('nearestpa')
 
-      coops.forEach((coop, i) => {
-        coopMap[i] = coop
+      coops.forEach((coop) => {
+        coopMap[coop.properties.id] = coop
         const dataToIndex = {
           name: coop.properties['Name of Cooperative'],
           acronym: coop.properties['Coop Acronym'],
           source: coop.properties.Source,
           vicinity: coop.properties.Vicinity,
           nearestpa: coop.properties['Nearest PA'],
-          id: i
+          id: coop.properties.id
         }
+        console.log(dataToIndex)
         this.add(dataToIndex)
       })
       coopBBox = turfbbox({
@@ -53,7 +57,7 @@ export default function COOPs ({t, coops}: Props) {
   const onSearch = (val) => {
     if (!val) {
       // clearing search
-      setSearchResults()
+      dispatch({type: 'SET_SEARCH_RESULTS', searchResults: []})
       if (coopBBox && primaryMapState?.state?.map?.map) {
         primaryMapState.state.map.map.fitBounds(coopBBox, {padding: 25, curve: 3, speed: 0.6, maxZoom: 10, animate: true})
       }
@@ -63,7 +67,7 @@ export default function COOPs ({t, coops}: Props) {
     const results = idx.search(val)
     const coopSearchResults = results.map(r => coopMap[r.ref])
     console.log(coopSearchResults)
-    setSearchResults(coopSearchResults)
+    dispatch({type: 'SET_SEARCH_RESULTS', searchResults: coopSearchResults})
   }
 
   return (
@@ -71,7 +75,7 @@ export default function COOPs ({t, coops}: Props) {
       <Row style={{padding: '10px', height: '100%', width: '100%'}}>
         <Search placeholder='Search' onSearch={onSearch} allowClear />
         <div style={{height: '100%', width: '100%', marginTop: '5px'}}>
-          {searchResults &&
+          {(searchResults.length > 0) &&
             <>
               <span>{searchResults.length} {t('Result(s) Found')}</span>
               <div style={{height: 'calc(100% - 50px)', overflowY: 'auto'}}>

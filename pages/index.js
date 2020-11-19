@@ -5,13 +5,14 @@ import {
   Row,
   Col
 } from 'antd'
-import { useSelector } from 'react-redux'
-import syncMaps from 'mapbox-gl-sync-move'
+
 import COOPSearch from '../components/COOPs'
 import Layers from '../components/Layers'
 import PrimaryMap from '../components/PrimaryMap'
 import AlertMap from '../components/AlertMap'
-import { CoopsLayer, coopsData, primaryLayers, alertLayers } from '../layers'
+import { primaryLayers, alertLayers } from '../layers'
+import { coopsData } from '../layers/coops'
+import type {Node} from 'React'
 
 const { Content, Sider } = Layout
 
@@ -23,22 +24,8 @@ const t = (val) => {
   return val
 }
 
-export default function Home () {
+export default function Home (): Node {
   const [collapsed, setCollapsed] = useState(false)
-  const [coops, setCoops] = useState({
-    layer: CoopsLayer,
-    data: coopsData
-  })
-  const [layers, setLayers] = useState([coops.layer, ...primaryLayers])
-  /*
-  const primaryMapState = useSelector(state => state.cam.primaryMapState)
-  const alertMapState = useSelector(state => state.cam.alertMapState)
-
-  if (primaryMapState?.state?.map?.map && alertMapState?.state?.map?.map) {
-    console.log('syncing maps')
-    syncMaps(primaryMapState.state.map.map, alertMapState.state.map.map)
-  }
-  */
 
   useEffect(() => {
     // fire a resize event to ensure MapboxGL map resizes properly
@@ -61,12 +48,12 @@ export default function Home () {
           <>
             <Row style={{height: '70vh'}}>
               <COOPSearch
-                coops={coops.data.features} t={t}
+                coops={coopsData.features} t={t}
               />
             </Row>
             <Row style={{height: '30vh'}}>
               <Layers
-                layers={layers} onToggle={(layer, val) => {
+                layers={primaryLayers} onToggle={(layer, val) => {
                   console.log(`toggled ${layer.name} - ${val}`)
                 }} t={t}
               />
@@ -77,7 +64,7 @@ export default function Home () {
         <Content style={{ margin: '0' }}>
           <Row style={{width: '100%', height: '100%'}}>
             <Col md={12} sm={24} style={{border: '1px solid #ddd'}}>
-              <PrimaryMap t={t} mapLayers={layers} />
+              <PrimaryMap t={t} mapLayers={primaryLayers} />
             </Col>
             <Col md={12} sm={24} style={{border: '1px solid #ddd'}}>
               <AlertMap t={t} mapLayers={alertLayers} />

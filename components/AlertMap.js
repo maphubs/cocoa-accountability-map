@@ -5,6 +5,8 @@ import { AlertGrid } from '../layers'
 import { Button, Row, Col } from 'antd'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import dynamic from 'next/dynamic'
+import type {Node} from 'React'
+
 const Map = dynamic(() => import('./Map'), {
   ssr: false
 })
@@ -16,11 +18,12 @@ const monthNamesEn = ['January', 'February', 'March', 'April', 'May', 'June',
 const minMonth = 1
 const maxMonth = 9
 
-export default function AlertMap ({t, mapLayers}: {t: Function, mapLayers: Array<Object>}) {
+export default function AlertMap ({t, mapLayers}: {t: Function, mapLayers: Array<Object>}): Node {
   const [glStyle, setGlStyle] = useState()
   const [alertGridLayer, setAlertGridLayer] = useState(AlertGrid(20, maxMonth, maxMonth))
   const [year, setYear] = useState(20)
   const [month, setMonth] = useState(maxMonth)
+
   useEffect(() => {
     const alertGridUpdated = AlertGrid(year, month, maxMonth)
     setAlertGridLayer(alertGridUpdated)

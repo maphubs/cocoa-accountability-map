@@ -1,4 +1,10 @@
-export default {
+// @flow
+const coopsData = require('../data/coops-20201118.json')
+coopsData.features.forEach((feature, i) => {
+  if (!feature.properties.id) feature.properties.id = i
+})
+
+const coopsLayer = {
   layer_id: 1,
   shortid: 'JmTgPfvLk',
   name: {
@@ -18,7 +24,7 @@ export default {
     sources: {
       coops: {
         type: 'geojson',
-        data: {},
+        data: coopsData,
         metadata: {
           'maphubs:presets': [
             {
@@ -171,18 +177,13 @@ export default {
     },
     layers: [
       {
-        id: 'omh-markers-JmTgPfvLk',
+        id: 'omh-markers-coops-small',
         type: 'symbol',
         metadata: {
           'maphubs:interactive': true
         },
         maxzoom: 8,
         source: 'coops',
-        filter: [
-          'in',
-          '$type',
-          'Point'
-        ],
         layout: {
           'icon-image': 'marker-icon-MlQjegnHjy',
           'icon-size': 0.45,
@@ -195,31 +196,26 @@ export default {
         }
       },
       {
-        id: 'omh-markers-JmTgPfvLk-2',
+        id: 'omh-markers-coops-large',
         type: 'symbol',
         minzoom: 8,
         metadata: {
           'maphubs:interactive': true
         },
         source: 'coops',
-        filter: [
-          'in',
-          '$type',
-          'Point'
-        ],
         layout: {
           'icon-image': 'marker-icon-MlQjegnHjy-2',
           'icon-size': 0.45,
           'icon-allow-overlap': true,
           'icon-offset': [
             0,
-            -16
+            -24
           ],
           visibility: 'visible'
         }
       },
       {
-        id: 'omh-data-point-5505-JmTgPfvLk',
+        id: 'omh-data-point-coops-small',
         type: 'circle',
         maxzoom: 8,
         metadata: {
@@ -229,9 +225,9 @@ export default {
           'maphubs:showBehindBaseMapLabels': false,
           'maphubs:markers': {
             shape: 'SQUARE_PIN',
-            size: '14',
-            width: 14,
-            height: 14,
+            size: '16',
+            width: 16,
+            height: 16,
             shapeFill: 'white',
             shapeFillOpacity: 0.75,
             shapeStroke: 'rgba(93,64,55,0.92)',
@@ -248,11 +244,6 @@ export default {
           }
         },
         source: 'coops',
-        filter: [
-          'in',
-          '$type',
-          'Point'
-        ],
         paint: {
           'circle-color': 'rgba(93,64,55,0.92)',
           'circle-opacity': 1
@@ -262,7 +253,7 @@ export default {
         }
       },
       {
-        id: 'omh-data-point-5505-JmTgPfvLk-2',
+        id: 'omh-data-point-coops-large',
         type: 'circle',
         minzoom: 8,
         metadata: {
@@ -291,11 +282,6 @@ export default {
           }
         },
         source: 'coops',
-        filter: [
-          'in',
-          '$type',
-          'Point'
-        ],
         paint: {
           'circle-color': 'rgba(93,64,55,0.92)',
           'circle-opacity': 1
@@ -340,3 +326,5 @@ export default {
  </div>
   `
 }
+
+export { coopsData, coopsLayer }
