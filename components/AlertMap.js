@@ -16,7 +16,7 @@ const monthNamesEn = ['January', 'February', 'March', 'April', 'May', 'June',
 ]
 
 const minMonth = 1
-const maxMonth = 9
+const maxMonth = 12
 
 export default function AlertMap ({t, mapLayers}: {t: Function, mapLayers: Array<Object>}): Node {
   const [glStyle, setGlStyle] = useState()
