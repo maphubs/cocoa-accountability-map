@@ -1,5 +1,6 @@
 const getLayer = (year, month, maxMonth) => {
   const API_URL = process.env.NEXT_PUBLIC_CAM_API_URL
+  const version = `20${year}-${maxMonth}` // used to defeat cache when updating the data
   return {
     layer_id: 2,
     shortid: 'alert-grid',
@@ -20,7 +21,7 @@ const getLayer = (year, month, maxMonth) => {
       sources: {
         'alert-grid-l4': {
           type: 'vector',
-          tiles: [`${API_URL}/api/mvt/L4/${maxMonth}/{z}/{x}/{y}.pbf`],
+          tiles: [`${API_URL}/api/mvt/L4/${version}/{z}/{x}/{y}.pbf`],
           metadata: {
             'maphubs:presets': [
               {
@@ -37,7 +38,7 @@ const getLayer = (year, month, maxMonth) => {
         },
         'alert-grid-l5': {
           type: 'vector',
-          tiles: [`${API_URL}/api/mvt/L5/${maxMonth}/{z}/{x}/{y}.pbf`],
+          tiles: [`${API_URL}/api/mvt/L5/${version}/{z}/{x}/{y}.pbf`],
           metadata: {
             'maphubs:presets': [
               {
@@ -77,13 +78,8 @@ const getLayer = (year, month, maxMonth) => {
           paint: {
             'fill-color': [
               'interpolate',
-              [
-                'linear'
-              ],
-              [
-                'get',
-                `20${year}-${month}`
-              ],
+              ['linear'],
+              ['get', `20${year}-${month}`],
               0,
               'rgb(254,229,217)',
               25,
@@ -142,13 +138,8 @@ const getLayer = (year, month, maxMonth) => {
           paint: {
             'fill-color': [
               'interpolate',
-              [
-                'linear'
-              ],
-              [
-                'get',
-                `20${year}-${month}`
-              ],
+              ['linear'],
+              ['get', `20${year}-${month}`],
               0,
               'rgb(254,229,217)',
               25,
